@@ -1,0 +1,37 @@
+﻿@page
+@using ElonIsVeryRich.Api
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form method="post">
+    <button type="submit">Calculate total cost</button>
+</form>
+
+@if(Model.TotalCost != null)
+{
+    <div>
+        <label>Total cost:</label>
+        <input type="number" disabled asp-for="@Model.TotalCost" />
+    </div>
+}
+
+<div class="text-center">
+    <h1 class="display-4">SpaceX Launches</h1>
+</div>
+
+@if(ApiCaller.Launches != null)
+{
+    <div class="row">
+        @foreach(var launch in ApiCaller.Launches)
+        {
+            <div class="col-4">
+                <img src="@launch.Links?.MissionPatchSmall" />
+                <h1>@launch.MissionName</h1>
+                <h2>@launch.LaunchYear</h2>
+                <p>@launch.Details</p>
+            </div>
+        }
+    </div>
+}
